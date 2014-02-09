@@ -1,13 +1,19 @@
 require 'spec_helper'
 
 describe "Authentication API" do
-  describe "GET /api/v1/user/1" do
+  describe "POSTs to OmniAuth for authentication and returns Identity id" do
     it "returns 200" do
-      user = FactoryGirl.create :user
+      identity = FactoryGirl.create :identity
 
-      get "/api/v1/user/1", {}, {"Accept" => "application/json"}
+      post "/auth/identity/callback", {:auth_key => identity.email, :password => identity.password}, {"Accept" => "application/json"}
+
 
       expect(response.status).to eq 200
+
+      body = JSON.parse(response.body)
+
+      expect(body["id"]).to eq(User.last.id)
+
     end
   end
 end

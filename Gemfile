@@ -7,6 +7,8 @@ gem 'rails-api'
 
 gem 'pg'
 gem 'thin'
+gem 'bcrypt-ruby'
+gem 'omniauth-identity'
 
 group :development, :test do
   gem 'rspec-rails'
